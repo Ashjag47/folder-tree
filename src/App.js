@@ -1,9 +1,15 @@
 import './App.css';
+import Folder from './components/folder/Folder';
+import { useState } from 'react';
+import folderData from './data/folderData';
 
 function App() {
+  const [explorer, setExplorer] = useState({
+    ...folderData
+  });
   return (
     <div className="App">
-      HI This is a folder tree
+      <Folder explorer={explorer}/>
     </div>
   );
 }
