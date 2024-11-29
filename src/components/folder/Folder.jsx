@@ -10,7 +10,7 @@ const Folder = ({ explorer }) => {
           <span>📁 {explorer.name}</span>
         </div>
         {isExpand && (
-          <div style={{ marginLeft: "10px" }}>
+          <div className="ml-5">
             {explorer.item.map((item) => {
               if (item.isFolder) {
                 return <Folder explorer={item} key={item.key} />;
