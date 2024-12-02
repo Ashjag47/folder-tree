@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Folder = ({ explorer }) => {
+const Folder = ({ handleTreeUpdate, explorer, key }) => {
   const [isExpand, setIsExpand] = useState(false);
   const [showInputBox, setShowInputBox] = useState({
     visible: false,
@@ -21,8 +21,7 @@ const Folder = ({ explorer }) => {
     const {isFolder} = showInputBox
     if (e.keyCode === 13 && fName.trim() !== "") {
       // add logic here
-      console.log("isFolder", isFolder);
-      console.log("fName", fName);
+      handleTreeUpdate(fName, isFolder, explorer.id)
 
       setShowInputBox({
         ...showInputBox,
@@ -37,6 +36,7 @@ const Folder = ({ explorer }) => {
         <div
           onClick={() => setIsExpand(!isExpand)}
           className="w-1/4 bg-slate-300 my-2 flex justify-between"
+          key={key}
         >
           <span>📁 {explorer.name}</span>
           <span>
@@ -78,10 +78,10 @@ const Folder = ({ explorer }) => {
           <div className="ml-5">
             {explorer.item.map((item) => {
               if (item.isFolder) {
-                return <Folder explorer={item} key={item.key} />;
+                return <Folder handleTreeUpdate={handleTreeUpdate} explorer={item} key={item.key} />;
               } else {
                 return (
-                  <div className="w-1/4 bg-slate-300 my-2 p-1">
+                  <div className="w-1/4 bg-slate-300 my-2 p-1" key={item.key}>
                     <span>📄 {item.name}</span>
                   </div>
                 );
@@ -94,7 +94,7 @@ const Folder = ({ explorer }) => {
   } else {
     return (
       <div>
-        <span className="w-1/4 bg-slate-300 my-2 p-1">📄 {explorer.name}</span>
+        <span className="w-1/4 bg-slate-300 my-2 p-1" key={explorer.id}>📄 {explorer.name}</span>
       </div>
     );
   }
