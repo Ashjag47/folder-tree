@@ -8,16 +8,31 @@ function App() {
   const [explorer, setExplorer] = useState({
     ...folderData,
   });
-  const {insertNode} = useTreeTraverse()
+  const { insertNode, deleteNode, updateNode } = useTreeTraverse();
 
   const handleTreeUpdate = (itemName, isFolder, parentId) => {
-    const result = {...insertNode(explorer, itemName, isFolder, parentId)}
-    setExplorer(result)
-  }
+    const result = { ...insertNode(explorer, itemName, isFolder, parentId) };
+    setExplorer(result);
+  };
+
+  const handleTreeDelete = (deleteNodeId) => {
+    const result = { ...deleteNode(explorer, deleteNodeId) };
+    setExplorer(result);
+  };
+
+  const handleTreeRename = (itemName, renameNodeId) => {
+    const result = { ...updateNode(explorer, itemName, renameNodeId) };
+    setExplorer(result);
+  };
 
   return (
     <div className="ml-3">
-      <Folder handleTreeUpdate={handleTreeUpdate} explorer={explorer} key={explorer.id}/>
+      <Folder
+        handleTreeUpdate={handleTreeUpdate}
+        handleTreeDelete={handleTreeDelete}
+        handleTreeRename={handleTreeRename}
+        explorer={explorer}
+      />
     </div>
   );
 }

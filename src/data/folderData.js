@@ -11,12 +11,14 @@ const explorer = {
                 {
                     id: 3,
                     name: 'File 1',
-                    isFolder: false
+                    isFolder: false,
+                    item: []
                 },
                 {
                     id: 4,
                     name: 'File 2',
-                    isFolder: false
+                    isFolder: false,
+                    item: []
                 }
             ]
         },
@@ -33,21 +35,24 @@ const explorer = {
                         {
                             id: 7,
                             name: 'File 3',
-                            isFolder: false
+                            isFolder: false,
+                            item: []
                         }
                     ]
                 },
                 {
                     id: 8,
                     name: 'File 4',
-                    isFolder: false
+                    isFolder: false,
+                    item: []
                 }
             ]
         },
         {
             id: 9,
             name: 'File 5',
-            isFolder: false
+            isFolder: false,
+            item: []
         }
     ]
 }
