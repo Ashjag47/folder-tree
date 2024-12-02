@@ -1,23 +1,35 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const useTreeTraverse = () => {
-    function insertNode(tree, itemName, isFolder, parentId) {
-        if(tree.id === parentId && tree.isFolder) {
-            tree.item.unshift({
-                id: uuidv4(),
-                name: itemName,
-                isFolder,
-                item: []
-            })
-            return tree
-        }
-        let latestItems = []
-        latestItems = tree.isFolder ? tree.item.map((item)=>{
-            return insertNode(item, itemName, isFolder, parentId)
-        }) : []
-        return ({...tree, item: latestItems})
+  function insertNode(tree, itemName, isFolder, parentId) {
+    // Base Case: return updated tree
+    if (tree.id === parentId && tree.isFolder) {
+      return {
+        ...tree,
+        item: [
+          {
+            id: uuidv4(),
+            name: itemName,
+            isFolder,
+            item: [],
+          },
+          ...tree.item,
+        ],
+      };
     }
-    return {insertNode}
-}
 
-export default useTreeTraverse
+    // Recursive call: if the base case is not meet
+    if (tree.isFolder) {
+      return {
+        ...tree,
+        item: tree.item.map((item) => insertNode(item, itemName, isFolder, parentId)),
+      };
+    }
+
+    // return the unchanged tree if no matchs are meet
+    return tree;
+  }
+  return { insertNode };
+};
+
+export default useTreeTraverse;
